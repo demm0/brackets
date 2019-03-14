@@ -4,6 +4,7 @@ module.exports = function check(str, bracketsConfig) {
   let open = [];
   let close = [];
   let skob = [];
+  let ravskob = [];
 
   for (let i = 0; i < str.length; i ++){
     for (let j = 0; j < bracketsConfig.length; j ++){
@@ -14,7 +15,10 @@ module.exports = function check(str, bracketsConfig) {
   }
 
   for (let i = 0; i < bracketsConfig.length; i ++){
-    skob[i] = bracketsConfig[i][0] + bracketsConfig[i][1];
+    skob[i] = '' + bracketsConfig[i][0] + '' + bracketsConfig[i][1];
+    if (bracketsConfig[i][0] == bracketsConfig[i][1]){
+      ravskob.push(String(bracketsConfig[i][0]));
+    }
   }
 
   for (let i = 0; i < str.length; i ++){
@@ -27,10 +31,12 @@ module.exports = function check(str, bracketsConfig) {
       }
     }
   }
+  
  if (open.length != close.length){
    return false;
  }
-  if ((close.includes(arr[0]) == true) && (arr[0] != '|')){
+ 
+  if ((close.includes(arr[0]) == true) && (ravskob.includes(arr[0]) == false)){
     return false;
   }
   else {
@@ -39,11 +45,11 @@ module.exports = function check(str, bracketsConfig) {
         arr2.push(arr[j])
       }
       else {
-        if ((open.includes(arr[j]) == true) && (arr[j] != '|')){
+        if ((open.includes(arr[j]) == true) && (ravskob.includes(arr[j]) == false)){
           arr2.push(arr[j])
           }
           else {
-            if ((arr[j] == '|') && (arr2[arr2.length-1] != '|')){
+            if ((ravskob.includes(arr[j]) == true) && (arr2[arr2.length-1] != arr[j])){
               arr2.push(arr[j])
             }
             else {
