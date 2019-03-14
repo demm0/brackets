@@ -27,8 +27,10 @@ module.exports = function check(str, bracketsConfig) {
       }
     }
   }
-
-  if(close.includes(arr[0]) == true){
+ if (open.length != close.length){
+   return false;
+ }
+  if ((close.includes(arr[0]) == true) && (arr[0] != '|')){
     return false;
   }
   else {
@@ -37,21 +39,26 @@ module.exports = function check(str, bracketsConfig) {
         arr2.push(arr[j])
       }
       else {
-        if (open.includes(arr[j]) == true){
+        if ((open.includes(arr[j]) == true) && (arr[j] != '|')){
           arr2.push(arr[j])
-        }
-        else {
-          let str2 = '' + arr2[arr2.length - 1] + '' + arr[j];
-          if (skob.includes(str2) == true){
-            arr2.pop();
           }
           else {
-            return false;
+            if ((arr[j] == '|') && (arr2[arr2.length-1] != '|')){
+              arr2.push(arr[j])
+            }
+            else {
+              let str2 = '' + arr2[arr2.length - 1] + '' + arr[j];
+              if (skob.includes(str2) == true){
+                arr2.pop();
+              }
+              else {
+                return false;
+              }
+            }
           }
         }
       }
     }
-  }
   return true;
   // your solution
 }
