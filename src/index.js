@@ -1,5 +1,5 @@
 module.exports = function check(str, bracketsConfig) {
-    let arr = [];
+  let arr = [];
   let arr2 = [];
   let open = [];
   let close = [];
@@ -37,7 +37,7 @@ module.exports = function check(str, bracketsConfig) {
         arr2.push(arr[j])
       }
       else {
-        if (open.includes(arr[0]) == true){
+        if (open.includes(arr[j]) == true){
           arr2.push(arr[j])
         }
         else {
