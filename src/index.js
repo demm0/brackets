@@ -69,6 +69,9 @@ module.exports = function check(str, bracketsConfig) {
         }
       }
     }
+     if (arr2.length != 0){
+      return false;
+    }
   return true;
   // your solution
 }
